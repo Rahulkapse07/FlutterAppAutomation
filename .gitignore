@@ -1,0 +1,18 @@
+# Ignore target directory
+/target/
+
+# Ignore test output directory
+/test-output/
+
+# Ignore logs directory
+/logs/
+
+# Ignore specific application files
+/src/main/resources/ApplicationFile/
+
+# Ignore reports and screenshots directories
+
+.settings
+.idea
+/bin/
+
