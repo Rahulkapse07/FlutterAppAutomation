@@ -1,6 +1,0 @@
-com\base\BaseTest.class
-com\test\ProductTest.class
-com\testUtils\Listeners.class
-com\test\LoginTest.class
-com\testUtils\AllureListeners.class
-com\testUtils\TestUtils.class

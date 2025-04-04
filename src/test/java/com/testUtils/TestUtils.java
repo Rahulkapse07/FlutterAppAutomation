@@ -16,9 +16,9 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.Color;
 
-import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.reporter.ExtentSparkReporter;
-import com.aventstack.extentreports.reporter.configuration.Theme;
+//import com.aventstack.extentreports.ExtentReports;
+//import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+//import com.aventstack.extentreports.reporter.configuration.Theme;
 import com.base.BaseTest;
 
 import io.appium.java_client.android.AndroidDriver;
@@ -33,26 +33,26 @@ import io.appium.java_client.AppiumDriver;
 
 public class TestUtils extends BaseTest {
 	
-static ExtentReports extent;
-	
-
-	public static ExtentReports getReporterObject() {
-		String path = System.getProperty("user.dir") + "/src/test/resources/Reports";
-		ExtentSparkReporter reporter = new ExtentSparkReporter(path);
-		//reporter.config().setReportName("RC Truvideo Enterprise App");
-		reporter.config().setReportName("RC CDK App");
-		reporter.config().setDocumentTitle("Automation Test Result");
-		reporter.config().setTheme(Theme.STANDARD);
-		extent = new ExtentReports();
-		extent.attachReporter(reporter);
-		//extent.setSystemInfo("5 Exceptions", "RC Truvideo");
-		extent.setSystemInfo("5 Exceptions", "RC CDK");
-//		extent.setSystemInfo("Device", BaseClass.capabilityName);
-//		extent.setSystemInfo("OS", BaseClass.opeartingSystem);
-//		extent.setSystemInfo("Build", BaseClass.applicationBuild);
-		return extent;
-
-	}
+//static ExtentReports extent;
+//	
+//
+//	public static ExtentReports getReporterObject() {
+//		String path = System.getProperty("user.dir") + "/src/test/resources/Reports";
+//		ExtentSparkReporter reporter = new ExtentSparkReporter(path);
+//		//reporter.config().setReportName("RC Truvideo Enterprise App");
+//		reporter.config().setReportName("RC CDK App");
+//		reporter.config().setDocumentTitle("Automation Test Result");
+//		reporter.config().setTheme(Theme.STANDARD);
+//		extent = new ExtentReports();
+//		extent.attachReporter(reporter);
+//		//extent.setSystemInfo("5 Exceptions", "RC Truvideo");
+//		extent.setSystemInfo("5 Exceptions", "RC CDK");
+////		extent.setSystemInfo("Device", BaseClass.capabilityName);
+////		extent.setSystemInfo("OS", BaseClass.opeartingSystem);
+////		extent.setSystemInfo("Build", BaseClass.applicationBuild);
+//		return extent;
+//
+//	}
 	
 //	public String getScreenShotPath(String testCaseName) throws IOException {
 //        if (driver == null) {

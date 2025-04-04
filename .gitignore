@@ -11,7 +11,7 @@
 /src/main/resources/ApplicationFile/
 
 # Ignore reports and screenshots directories
-
+/allure-results/
 .settings
 .idea
 /bin/
