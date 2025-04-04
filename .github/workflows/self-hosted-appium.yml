@@ -28,7 +28,6 @@ jobs:
       - name: Install Appium (if not installed globally)
         run: npm install -g appium
 
-
       - name: Verify Android Device Connection
         run: adb devices
 
