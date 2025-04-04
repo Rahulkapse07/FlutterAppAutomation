@@ -28,8 +28,6 @@ jobs:
       - name: Install Appium (if not installed globally)
         run: npm install -g appium
 
-      - name: Start Appium Server
-        run: nohup appium > appium.log 2>&1 &
 
       - name: Verify Android Device Connection
         run: adb devices
