@@ -4,8 +4,11 @@
   <!-- <listeners>
 		<listener class-name="com.testUtils.AllureListeners"></listener>
 	</listeners> -->
-	<listeners>
+	<!-- <listeners>
 		<listener class-name="com.testUtils.Listeners"></listener>
+	</listeners> -->
+	<listeners>
+		<listener class-name="com.aventstack.chaintest.plugins.ChainTestListener"></listener>
 	</listeners>
   <test thread-count="5" name="Test">
     <classes>
