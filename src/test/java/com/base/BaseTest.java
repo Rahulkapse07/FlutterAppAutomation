@@ -8,7 +8,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Listeners;
 
-import com.aventstack.chaintest.plugins.ChainTestListener;
+//import com.aventstack.chaintest.plugins.ChainTestListener;
 import com.test.LaunchApp;
 
 import io.appium.java_client.android.AndroidDriver;
