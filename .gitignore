@@ -7,6 +7,8 @@
 # Ignore logs directory
 /logs/
 
+/actions-runner/
+
 # Ignore specific application files
 /src/main/resources/ApplicationFile/
 
