@@ -25,16 +25,11 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install Appium CLI (if not installed)
+      - name: Install Appium (if not installed globally)
         run: npm install -g appium
-
-      - name: Start Appium Server in Background
-        run: nohup appium &
 
       - name: Verify Android Device Connection
         run: adb devices
 
-      - name: Run Tests with testng.xml
+      - name: Run Maven Tests (Triggers Appium from Java)
         run: mvn clean test
-        env:
-          JAVA_HOME: ${{ env.JAVA_HOME }}
