@@ -39,10 +39,3 @@ jobs:
       - name: Run Appium tests on real device
         run: |
           mvn clean install
-
-      - name: Upload test reports
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: Test-Reports
-          path: target/surefire-reports/
