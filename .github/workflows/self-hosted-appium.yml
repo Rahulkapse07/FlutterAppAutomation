@@ -9,6 +9,7 @@ on:
 jobs:
   run-appium-tests:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     steps:
     - name: Checkout repository
@@ -20,17 +21,6 @@ jobs:
         distribution: 'temurin'
         java-version: '11'
 
-    - name: Set up Android SDK
-      uses: reactivecircus/android-emulator-runner@v2
-      with:
-        api-level: 30
-        target: default
-        arch: x86_64
-        profile: pixel
-        emulator-options: '-no-window -no-audio'
-        script: |
-          echo "Emulator booted."
-
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
@@ -41,13 +31,25 @@ jobs:
         npm install -g appium
         appium -v
 
-    - name: Start Appium Server in Background
-      run: |
-        nohup appium > appium.log 2>&1 &
-        sleep 10
+    - name: Start Android Emulator and Run Tests
+      uses: reactivecircus/android-emulator-runner@v2
+      with:
+        api-level: 30
+        target: default
+        arch: x86_64
+        profile: pixel
+        emulator-options: '-no-window -no-audio -gpu swiftshader_indirect'
+        disable-animations: true
+        script: |
+          echo "Waiting for emulator..."
+          adb wait-for-device
+          adb shell settings put global window_animation_scale 0
+          adb shell settings put global transition_animation_scale 0
+          adb shell settings put global animator_duration_scale 0
 
-    - name: Grant execute permission to Maven wrapper (if needed)
-      run: chmod +x mvnw
+          echo "Starting Appium in background..."
+          nohup appium > appium.log 2>&1 &
+          sleep 10
 
-    - name: Run tests with Maven
-      run: mvn clean test
+          echo "Running tests..."
+          mvn clean test
