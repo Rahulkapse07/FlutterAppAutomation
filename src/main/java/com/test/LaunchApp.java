@@ -19,21 +19,21 @@ public class LaunchApp {
 	//public static void main(String[] args) throws MalformedURLException, FileNotFoundException {
 		
 		public void launch() throws MalformedURLException {
-		File logFile = new File("appium_logs.txt");
-
-		service = new AppiumServiceBuilder()
-		        .withAppiumJS(new File("C:\\Users\\rahul\\AppData\\Roaming\\npm\\node_modules\\appium\\build\\lib\\main.js"))
-		        .usingAnyFreePort()
-		        
-		        .build();
-		//.withLogFile(logFile)  // ✅ Sirf Appium logs ko file me redirect karega
-
-		service.start();
-
-		System.out.println("✅ Appium Server Started. Logs saved in appium_logs.txt");
-
-	        System.out.println("✅ Appium Server Started at: " + service.getUrl());
-		System.out.println("Appium server started at: " + service.getUrl());
+//		File logFile = new File("appium_logs.txt");
+//
+//		service = new AppiumServiceBuilder()
+//		        .withAppiumJS(new File("C:\\Users\\rahul\\AppData\\Roaming\\npm\\node_modules\\appium\\build\\lib\\main.js"))
+//		        .usingAnyFreePort()
+//		        
+//		        .build();
+//		//.withLogFile(logFile)  // ✅ Sirf Appium logs ko file me redirect karega
+//
+//		service.start();
+//
+//		System.out.println("✅ Appium Server Started. Logs saved in appium_logs.txt");
+//
+//	        System.out.println("✅ Appium Server Started at: " + service.getUrl());
+//		System.out.println("Appium server started at: " + service.getUrl());
 
 		
 		 DesiredCapabilities caps = new DesiredCapabilities();
@@ -48,9 +48,10 @@ public class LaunchApp {
 	        caps.setCapability("automationName", "UiAutomator2");
 	        caps.setCapability("autoGrantPermissions", true);
 	        	      
-	        String serverUrl = service.getUrl().toString();
-	        System.out.println("Appium server started at: " + serverUrl);
-	         driver = new AndroidDriver(new URL(serverUrl), caps);
+	       // String serverUrl = service.getUrl().toString();
+//	        System.out.println("Appium server started at: " + serverUrl);
+//	         driver = new AndroidDriver(new URL(serverUrl), caps);
+	         driver = new AndroidDriver(new URL("http://127.0.0.1:4723"), caps);
 
 //	        try {
 //	            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
@@ -68,7 +69,37 @@ public class LaunchApp {
 	        }
 	        System.out.println("Application launched");
 	        // driver.quit();
+			
+			
+			//From below code is for use BrowserStack
+			
+		
 
-	}
+//			    public AndroidDriver driver;
+//
+//			    public void launch() throws MalformedURLException {
+//
+//			        DesiredCapabilities caps = new DesiredCapabilities();
+//			        caps.setCapability("platformName", "Android");
+//			        caps.setCapability("deviceName", "Galaxy S21"); // You can change this based on your plan
+//			        caps.setCapability("os_version", "12.0"); // Set the OS version you want
+//			        caps.setCapability("app", "bs://<your-app-id>"); // Replace with your uploaded app ID from BrowserStack
+//			        caps.setCapability("project", "My Project");
+//			        caps.setCapability("build", "Build 1.0");
+//			        caps.setCapability("name", "General Store App Launch Test");
+//			        caps.setCapability("autoGrantPermissions", true);
+//
+//			        // BrowserStack credentials from environment variables or GitHub Secrets
+//			        String username = System.getenv("rajeev_tYycZA");
+//			        String accessKey = System.getenv("GmRjLigzgFhpJf8b9m98");
+//
+//			        String browserStackUrl = "https://" + username + ":" + accessKey + "@hub.browserstack.com/wd/hub";
+//
+//			        driver = new AndroidDriver(new URL(browserStackUrl), caps);
+//
+//			        System.out.println("✅ Application launched successfully on BrowserStack");
+//			    }
+//			
 
+		}
 }
