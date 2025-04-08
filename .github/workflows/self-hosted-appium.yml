@@ -52,9 +52,4 @@ jobs:
       - name: Run Tests
         run: ./mvnw clean test
 
-      - name: Upload Test Reports
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: Test Reports
-          path: target/surefire-reports
+
