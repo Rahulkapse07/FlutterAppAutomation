@@ -38,7 +38,8 @@ public class LaunchApp {
 		
 		 DesiredCapabilities caps = new DesiredCapabilities();
 	       // caps.setCapability("platformName", "Android");
-	        caps.setCapability("deviceName", "Pixel_8"); // Change to your device name
+	        //caps.setCapability("deviceName", "Pixel_8"); // Change to your device name
+	        caps.setCapability("deviceName", "emulator-5554");
 	       // caps.setCapability("app", "D:\\Downloads Data\\General-Store.apk"); // Path to APK file
 	       // caps.setCapability("app", "C:\\Users\\rahul\\Downloads\\General-Store.apk");
 	        String apkPath = System.getProperty("user.dir") + "/src/main/resources/General-Store.apk";
