@@ -3,8 +3,7 @@ name: Run Appium Tests on Android Emulator
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
+
 
 jobs:
   test:
@@ -25,27 +24,34 @@ jobs:
       with:
         node-version: '18'
 
-    - name: Install Appium and Drivers
+    - name: Install Appium and Drivers (no progress output)
       run: |
+        npm set progress=false
+        npm config set loglevel warn
         npm install -g appium
         appium driver install uiautomator2
 
     - name: Start Appium Server
       run: |
         appium --base-path / --log-level info > appium.log 2>&1 &
-        sleep 10  # give Appium time to start
+        sleep 10
 
     - name: Run Android Emulator and Tests
       uses: reactivecircus/android-emulator-runner@v2
       with:
         api-level: 30
-        target: default           # default is fine for basic tests
+        target: default
         arch: x86_64
-        profile: pixel            # pixel is valid and reliable
+        profile: pixel
         emulator-options: "-no-window -no-audio"
+        disable-animations: true
         script: |
-          adb devices
           adb wait-for-device
-          adb shell input keyevent 82  # unlock screen
-          mvn clean test               # use ./mvnw if using Maven Wrapper
-
+          boot_status=""
+          while [ "$boot_status" != "1" ]; do
+            sleep 5
+            boot_status=$(adb shell getprop sys.boot_completed | tr -d '\r')
+          done
+          echo "✅ Emulator is ready."
+          adb shell input keyevent 82
+          ./mvnw -B clean test   # -B = batch mode, removes Maven progress output
