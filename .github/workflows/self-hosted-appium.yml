@@ -1,4 +1,4 @@
-name: Android Emulator Tests
+name: Run Appium Android Tests on Emulator
 
 on:
   push:
@@ -7,50 +7,54 @@ on:
   pull_request:
 
 jobs:
-  test:
-    name: Run Android Emulator Tests
+  run-tests:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
 
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Set up Java
+      - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
-          distribution: 'temurin'
           java-version: '17'
+          distribution: 'temurin'
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
 
-      - name: Install Appium & Doctor
+      - name: Install Appium and Required Drivers
         run: |
-          npm install -g appium appium-doctor
-          appium-doctor --android
+          npm install -g appium
+          appium driver install uiautomator2
 
-      - name: Run emulator and execute Appium tests
+      - name: Start Android Emulator
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 28
+          api-level: 30
           target: google_apis
           arch: x86_64
-          profile: pixel
-          emulator-options: -no-window -no-audio -gpu swiftshader_indirect
+          profile: pixel_8
+          avd-name: Pixel_8
+          emulator-options: -no-snapshot-save -no-window
           disable-animations: true
-          script: |
-            echo "Starting emulator..."
-            adb devices
-            adb shell input keyevent 82 # unlock screen
+          script: echo "Emulator is ready"
 
-            # Start Appium in background
-            nohup appium --base-path /wd/hub > appium.log 2>&1 &
-            sleep 20 # give emulator + Appium server enough time
+      - name: Start Appium Server
+        run: |
+          nohup appium > appium.log 2>&1 &
+          sleep 10
+          echo "Appium server started."
 
-            # Run the tests
-            mvn clean test
+      - name: Grant Execution Permissions for Maven
+        run: chmod +x mvnw
 
+      - name: Run Tests
+        run: ./mvnw clean test
 
+      - name: Upload Test Reports
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: Test Reports
+          path: target/surefire-reports
