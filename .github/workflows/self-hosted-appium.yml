@@ -57,9 +57,4 @@ jobs:
       - name: Run Appium Tests with Maven
         run: mvn clean test
 
-      - name: Upload Test Reports
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: Test Reports
-          path: target/surefire-reports/
+
