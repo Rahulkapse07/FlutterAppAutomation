@@ -1,60 +1,54 @@
-name: Run Android Appium Tests on Emulator
+name: Android Emulator Tests
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   pull_request:
-    branches: [ main ]
 
 jobs:
-  run-tests:
+  test:
+    name: Run Android Emulator Tests
     runs-on: ubuntu-latest
+    timeout-minutes: 35
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Java 17
+      - name: Set up Java
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Set up Node.js (for Appium)
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
 
-      - name: Install Appium and Drivers
+      - name: Install Appium
         run: |
           npm install -g appium
-          appium driver install uiautomator2
           appium -v
-          appium &  # Start Appium server in background
-          sleep 10
 
-      - name: Start Android Emulator
+      - name: Install Appium Doctor
+        run: |
+          npm install -g appium-doctor
+          appium-doctor
+
+      - name: Run emulator and execute Appium tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 30
+          api-level: 28
           target: google_apis
           arch: x86_64
           profile: pixel
           emulator-options: -no-window -no-audio -gpu swiftshader_indirect
-          disable-animations: true
-          script: echo "Emulator booted"
-
-      - name: Wait for Emulator and Restart ADB
-        run: |
-          adb wait-for-device
-          adb shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;'
-          adb devices
-          adb kill-server || true
-          adb start-server
-          adb devices
-          echo "✅ Emulator is ready"
-
-      - name: Run Appium Tests with Maven
-        run: mvn clean test
-
-
+          script: |
+            echo "Starting emulator..."
+            adb devices
+            adb shell input keyevent 82 # unlock screen
+            appium --log-level info &
+            sleep 10 # give Appium server a few seconds to start
+            mvn clean test
