@@ -40,7 +40,22 @@ public class LaunchApp {
 	       // caps.setCapability("platformName", "Android");
 	        caps.setCapability("deviceName", "Pixel_8"); // Change to your device name
 	       // caps.setCapability("app", "D:\\Downloads Data\\General-Store.apk"); // Path to APK file
-	        caps.setCapability("app", "C:\\Users\\rahul\\Downloads\\General-Store.apk");
+	       // caps.setCapability("app", "C:\\Users\\rahul\\Downloads\\General-Store.apk");
+	        String apkPath = System.getProperty("user.dir") + "/src/main/resources/General-Store.apk";
+	        System.out.println("APK Path: " + apkPath);
+//	        String apkPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" + File.separator + "resources" + File.separator + "General-Store.apk";
+//	        File apkFile = new File(apkPath);
+//
+//	        if (!apkFile.exists() || !apkFile.canRead()) {
+//	            throw new RuntimeException("APK not found or unreadable at: " + apkPath);
+//	        }
+//
+	        caps.setCapability("app", apkPath);
+
+	       // caps.setCapability("app", apkPath);
+
+	        //caps.setCapability("app", System.getProperty("user.dir") + "/src/test/resources/General-Store.apk");
+
 	       // caps.setCapability("appPackage", "com.sec.android.app.camera");
 	       // caps.setCapability("appPackage", "com.truvideo.enterprise.rc");
 	       // caps.setCapability("appPackage", "com.flipkart.android");	        
