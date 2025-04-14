@@ -54,6 +54,7 @@ public class LaunchApp {
 	        caps.setCapability("app", apkPath);
 	        caps.setCapability("uiautomator2ServerInstallTimeout", 90000);
 	        caps.setCapability("adbExecTimeout", 90000);
+	        caps.setCapability("uiautomator2ServerLaunchTimeout", 90000);
 
 
 	       // caps.setCapability("app", apkPath);
