@@ -27,6 +27,7 @@ ArrayList<String>arr2=new ArrayList<String>();
 			char ch1=str.charAt(i);
 			//str.valueOf(i);
 			arr2.add(String.valueOf(ch1));
+			
 		}
 		System.out.println(arr2.toString());
 		if(arr1.equals(arr2)) {
