@@ -20,6 +20,21 @@
 			<artifactId>testng</artifactId>
 			<version>7.10.2</version>
 		</dependency>
+		
+	<!-- <dependency>
+    <groupId>io.github.testsigma-eng</groupId>
+    <artifactId>appium-flutterfinder-java</artifactId>
+    <version>0.1.1</version>
+	</dependency> -->
+	
+
+<dependency>
+    <groupId>io.github.ashwithpoojary98</groupId>
+    <artifactId>appium_flutterfinder_java</artifactId>
+    <version>1.0.10</version>
+</dependency>
+	
+		
 
 		<dependency>
 			<groupId>com.aventstack</groupId>
