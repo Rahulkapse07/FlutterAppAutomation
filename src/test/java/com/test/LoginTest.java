@@ -26,10 +26,16 @@ public class LoginTest extends BaseTest {
 //		driver.quit();
 //	}
 	
-	@Test
+	//@Test
 	public void verifyTest1() throws InterruptedException, MalformedURLException {
 		Login login=new Login(driver);
 		login.test();
+		//Assert.assertTrue(true);
+	}
+	@Test
+	public void verifyTestRC() throws InterruptedException, MalformedURLException {
+		Login login=new Login(driver);
+		login.testRC();
 		//Assert.assertTrue(true);
 	}
 

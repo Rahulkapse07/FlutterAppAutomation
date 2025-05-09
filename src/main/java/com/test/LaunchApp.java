@@ -7,6 +7,8 @@ import java.io.PrintStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.SessionId;
+
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
@@ -16,19 +18,21 @@ public class LaunchApp {
 	private static AppiumDriverLocalService service;
 	public  AndroidDriver driver;
 
+
 	//public static void main(String[] args) throws MalformedURLException, FileNotFoundException {
 		
 		public void launch() throws MalformedURLException {
 //		File logFile = new File("appium_logs.txt");
 //
-//		service = new AppiumServiceBuilder()
-//		        .withAppiumJS(new File("C:\\Users\\rahul\\AppData\\Roaming\\npm\\node_modules\\appium\\build\\lib\\main.js"))
-//		        .usingAnyFreePort()
-//		        
-//		        .build();
-//		//.withLogFile(logFile)  // ✅ Sirf Appium logs ko file me redirect karega
-//
-//		service.start();
+		service = new AppiumServiceBuilder()
+		        .withAppiumJS(new File("C:\\Users\\rahul\\AppData\\Roaming\\npm\\node_modules\\appium\\build\\lib\\main.js"))
+		        .usingAnyFreePort()
+		        
+		        .build();
+		//.withLogFile(logFile)  // ✅ Sirf Appium logs ko file me redirect karega
+
+		service.start();
+		
 //
 //		System.out.println("✅ Appium Server Started. Logs saved in appium_logs.txt");
 //
@@ -40,10 +44,11 @@ public class LaunchApp {
 	       // caps.setCapability("platformName", "Android");
 	        //caps.setCapability("deviceName", "Pixel_8"); // Change to your device name
 	        caps.setCapability("deviceName", "emulator-5554");
+	      //  caps.setCapability("automationName", "flutter"); // 👈 Important for Flutter apps
 	       // caps.setCapability("app", "D:\\Downloads Data\\General-Store.apk"); // Path to APK file
-	       // caps.setCapability("app", "C:\\Users\\rahul\\Downloads\\General-Store.apk");
-	        String apkPath = System.getProperty("user.dir") + "/src/main/resources/General-Store.apk";
-	        System.out.println("APK Path: " + apkPath);
+	        caps.setCapability("app", "C:\\Users\\rahul\\Downloads\\RC Updated.apk");
+	       // String apkPath = System.getProperty("user.dir") + "/src/main/resources/General-Store.apk";
+	       // System.out.println("APK Path: " + apkPath);
 //	        String apkPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" + File.separator + "resources" + File.separator + "General-Store.apk";
 //	        File apkFile = new File(apkPath);
 //
@@ -51,10 +56,10 @@ public class LaunchApp {
 //	            throw new RuntimeException("APK not found or unreadable at: " + apkPath);
 //	        }
 //
-	        caps.setCapability("app", apkPath);
-	        caps.setCapability("uiautomator2ServerInstallTimeout", 90000);
-	        caps.setCapability("adbExecTimeout", 90000);
-	        caps.setCapability("uiautomator2ServerLaunchTimeout", 90000);
+	        //caps.setCapability("app", apkPath);
+//	        caps.setCapability("uiautomator2ServerInstallTimeout", 90000);
+//	        caps.setCapability("adbExecTimeout", 90000);
+//	        caps.setCapability("uiautomator2ServerLaunchTimeout", 90000);
 
 
 	       // caps.setCapability("app", apkPath);
@@ -68,10 +73,10 @@ public class LaunchApp {
 	        caps.setCapability("automationName", "UiAutomator2");
 	        caps.setCapability("autoGrantPermissions", true);
 	        	      
-	       // String serverUrl = service.getUrl().toString();
-//	        System.out.println("Appium server started at: " + serverUrl);
-//	         driver = new AndroidDriver(new URL(serverUrl), caps);
-	         driver = new AndroidDriver(new URL("http://127.0.0.1:4723"), caps);
+	        String serverUrl = service.getUrl().toString();
+	        System.out.println("Appium server started at: " + serverUrl);
+	         driver = new AndroidDriver(new URL(serverUrl), caps);     //this and above two lines are used to start server automatically
+	   //      driver = new AndroidDriver(new URL("http://127.0.0.1:4723"), caps);      //uncomment this if you are strtaing server manually
 
 //	        try {
 //	            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
@@ -88,6 +93,10 @@ public class LaunchApp {
 	            e.printStackTrace();
 	        }
 	        System.out.println("Application launched");
+	        
+	        SessionId sessionId = driver.getSessionId();
+	        System.out.println("Session ID: " + sessionId.toString());
+	        SessionManager.saveSessionId(sessionId.toString());
 	        // driver.quit();
 			
 			
