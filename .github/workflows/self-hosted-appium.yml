@@ -2,7 +2,7 @@ name: Run Appium Tests on Android Emulator
 
 on:
   push:
-    branches: [ main ]
+    branches: [  ]
   pull_request:
     branches: [ main ]
 
